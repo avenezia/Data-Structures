@@ -132,8 +132,6 @@ namespace trie
         return nullptr;
     }
 
-
-
     /* To avoid code duplication for a const and a non-const version of the method, we use
        the following method, as explained by Scott Meyers in Effective C++ 3rd edition in Item 3.
        Basically the non-const version uses the const one through a const cast: this is safe
