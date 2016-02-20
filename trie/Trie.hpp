@@ -1,8 +1,8 @@
 #ifndef TRIE_TRIE_HPP
 #define TRIE_TRIE_HPP
 
-#include "boost/optional.hpp"
 #include <map>
+#include "boost/optional.hpp"
 
 namespace trie
 {
@@ -12,7 +12,7 @@ namespace trie
     template <typename T>
     class Trie
     {
-    public:
+      public:
 
         /** It adds iKey in the trie with a corresponding value iValue.
          *  If iKey is already existing, its value will be overwritten.
@@ -33,7 +33,7 @@ namespace trie
         /** If the trie has no value and no children, it returns true; false otherwise. */
         bool isEmpty() const;
 
-    private:
+      private:
         /** If iKey is present with a corresponding value, a pointer to
          *  the node is returned; a null pointer otherwise. */
         Trie<T>* findKey(const std::string& iKey);
