@@ -1,6 +1,7 @@
 #ifndef HEAP_BINARY_HEAP_HPP
 #define HEAP_BINARY_HEAP_HPP
 
+#include <cstddef>
 #include <vector>
 
 namespace heap
@@ -13,6 +14,8 @@ namespace heap
 
         void insert(const T& iElement);
         bool isEmpty() const;
+
+        size_t size() const;
 
       protected:
         Comparator _comparator;
