@@ -11,6 +11,8 @@ namespace heap
     {
       public:
         explicit BinaryHeap(const size_t iSize, const Comparator& iComparator);
+        template <typename RandomAccessIterator>
+        explicit BinaryHeap(RandomAccessIterator first, RandomAccessIterator last, const Comparator& iComparator);
 
         void insert(const T& iElement);
         bool isEmpty() const;
@@ -22,6 +24,9 @@ namespace heap
         const T& getRoot() const;
 
         void exchange(const size_t iFirstIndex, const size_t iSecondIndex);
+        /** It represents the top-down reheapify. */
+        void sink(const size_t iElementIndex);
+        /** It represents the bottom-up reheapify. */
         void swim(const size_t iElementIndex);
 
         Comparator _comparator;
