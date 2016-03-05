@@ -30,6 +30,11 @@ namespace heap
     }
 
     template <typename T, typename Comparator>
+    BinaryHeap<T, Comparator>::~BinaryHeap()
+    {
+    }
+
+    template <typename T, typename Comparator>
     T BinaryHeap<T, Comparator>::deleteRoot()
     {
         if (_elementCount == 0)
@@ -83,20 +88,21 @@ namespace heap
     void BinaryHeap<T, Comparator>::sink(const size_t iElementIndex)
     {
         bool isSinkDone = false;
-        while (2 * iElementIndex <= _elementCount && !isSinkDone)
+        size_t elementIndex = iElementIndex;
+        while (2 * elementIndex <= _elementCount && !isSinkDone)
         {
-            size_t childIndex = 2 * iElementIndex;
+            size_t childIndex = 2 * elementIndex;
             // Checking which of the 2 children has to be compared with the parent.
             if (childIndex < _elementCount && _comparator(childIndex, childIndex + 1))
             {
                 ++childIndex;
             }
-            if (_comparator(iElementIndex, childIndex))
+            if (_comparator(elementIndex, childIndex))
             {
-                // If the inequality comparison between the parent at iElementIndex and the child at childIndex
+                // If the inequality comparison between the parent at elementIndex and the child at childIndex
                 // is satisfied, the parent is swapped with the child, and the former goes down in the hierarchy.
-                exchange(iElementIndex, childIndex);
-                iElementIndex = childIndex;
+                exchange(elementIndex, childIndex);
+                elementIndex = childIndex;
             }
             else
             {
@@ -114,12 +120,46 @@ namespace heap
     template <typename T, typename Comparator>
     void BinaryHeap<T, Comparator>::swim(const size_t iElementIndex)
     {
-        while (iElementIndex > 1 && _comparator(iElementIndex / 2, iElementIndex))
+        size_t elementIndex = iElementIndex;
+        while (elementIndex > 1 && _comparator(elementIndex / 2, elementIndex))
         {
-            // If the inequality comparison between the child at iElementIndex and the parent at iElementIndex / 2
+            // If the inequality comparison between the child at elementIndex and the parent at elementIndex / 2
             // is satisfied, the child is swapped with the parent, and the former goes up in the hierarchy.
-            exchange(iElementIndex / 2, iElementIndex);
-            iElementIndex = iElementIndex / 2;
+            exchange(elementIndex / 2, elementIndex);
+            elementIndex = elementIndex / 2;
         }
     }
+
+    template <typename T>
+    MaxHeap<T>::MaxHeap(const size_t iSize)
+        : BinaryHeap<T, std::less<T>>(iSize, std::less<T>())
+    {
+    }
+
+    template <typename T>
+    template <typename RandomAccessIterator>
+    MaxHeap<T>::MaxHeap(RandomAccessIterator first, RandomAccessIterator last)
+        : BinaryHeap<T, std::less<T>>(first, last, std::less<T>())
+    {
+    }
+
+    template <typename T>
+    MaxHeap<T>::~MaxHeap()
+    {
+    }
+
+    template <typename T>
+    T MaxHeap<T>::deleteMax()
+    {
+        return BinaryHeap<T, std::less<T>>::deleteRoot();
+    }
+
+    template <typename T>
+    const T& MaxHeap<T>::getMax() const
+    {
+        return BinaryHeap<T, std::less<T>>::getRoot();
+    }
+
+    //template <typename Comparator> class BinaryHeap<int, Comparator>;
+    template class MaxHeap<int>;
 }
