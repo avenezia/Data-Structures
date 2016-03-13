@@ -6,7 +6,7 @@ using namespace std;
 
 #include "gtest/gtest.h"
 
-#include "BinaryHeap.hpp"
+#include "MaxHeap.hpp"
 
 namespace heap
 {
@@ -28,15 +28,14 @@ namespace heap
     {
         vector<int> values = {-1, 2, 8};
         MaxHeap<int> heap(values.begin(), values.end());
-        /*
         vector<int> expectedValues = {8, 2, -1};
         for (size_t index = 0; index < expectedValues.size(); ++index)
         {
             ASSERT_EQ(expectedValues[index], heap.getMax());
             heap.deleteMax();
-        }*/
+        }
     }
-/*
+
     TEST (BinaryHeapTest, testDeleteMax)
     {
         vector<int> values = {-18, 9, 30, -23, 43};
@@ -49,5 +48,5 @@ namespace heap
             ASSERT_EQ(expectedValues[index], max);
             ASSERT_EQ(initialSize - index - 1, heap.size());
         }
-    }*/
+    }
 }
