@@ -149,7 +149,7 @@ namespace heap
     }
 
     template <typename T>
-    T MaxHeap<T>::deleteMax()
+    T MaxHeap<T>::deleteMax() 
     {
         return BinaryHeap<T, std::less<T>>::deleteRoot();
     }
