@@ -10,30 +10,15 @@ using namespace std;
 
 namespace heap
 {
-    TEST (BinaryHeapTest, testIsEmpty)
+    TEST (BinaryHeapTest, testConstructor_zeroElements)
     {
-        MaxHeap<int> heap(10);
-        ASSERT_TRUE(heap.isEmpty());
+        ASSERT_THROW(MaxHeap<int> heap(0), std::runtime_error);
     }
 
-    TEST (BinaryHeapTest, testSize)
+    TEST (BinaryHeapTest, testConstructor_rangeOfZeroElements)
     {
-        MaxHeap<int> heap(5);
-        heap.insert(3);
-        heap.insert(4);
-        ASSERT_EQ(2, heap.size());
-    }
-
-    TEST (BinaryHeapTest, testGetMax)
-    {
-        vector<int> values = {-1, 2, 8};
-        MaxHeap<int> heap(values.begin(), values.end());
-        vector<int> expectedValues = {8, 2, -1};
-        for (size_t index = 0; index < expectedValues.size(); ++index)
-        {
-            ASSERT_EQ(expectedValues[index], heap.getMax());
-            heap.deleteMax();
-        }
+        vector<int> values;
+        ASSERT_THROW(MaxHeap<int> heap(values.begin(), values.end()), std::runtime_error);
     }
 
     TEST (BinaryHeapTest, testDeleteMax)
@@ -49,4 +34,50 @@ namespace heap
             ASSERT_EQ(initialSize - index - 1, heap.size());
         }
     }
+
+    TEST (BinaryHeapTest, testDeleteMax_emptyHeap)
+    {
+        MaxHeap<int> heap(10);
+        ASSERT_THROW(heap.deleteMax(), std::runtime_error);
+    }
+
+    TEST (BinaryHeapTest, testGetMax)
+    {
+        vector<int> values = {-1, 2, 8};
+        MaxHeap<int> heap(values.begin(), values.end());
+        vector<int> expectedValues = {8, 2, -1};
+        for (size_t index = 0; index < expectedValues.size(); ++index)
+        {
+            ASSERT_EQ(expectedValues[index], heap.getMax());
+            heap.deleteMax();
+        }
+    }
+
+    TEST (BinaryHeapTest, testGetMax_emptyHeap)
+    {
+        MaxHeap<int> heap(10);
+        ASSERT_THROW(heap.getMax(), std::runtime_error);
+    }
+
+    TEST (BinaryHeapTest, testInsert_emptyHeap)
+    {
+        vector<int> values = {30, 40};
+        MaxHeap<int> heap(values.begin(), values.end());
+        ASSERT_THROW(heap.insert(90), std::runtime_error);
+    }
+
+    TEST (BinaryHeapTest, testIsEmpty)
+    {
+        MaxHeap<int> heap(10);
+        ASSERT_TRUE(heap.isEmpty());
+    }
+
+    TEST (BinaryHeapTest, testSize)
+    {
+        MaxHeap<int> heap(5);
+        heap.insert(3);
+        heap.insert(4);
+        ASSERT_EQ(2, heap.size());
+    }
+
 }

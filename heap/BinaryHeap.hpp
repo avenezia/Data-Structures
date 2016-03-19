@@ -20,13 +20,15 @@ namespace heap
               _elementCount(0),
               _elements(iSize + 1)
         {
+            if (iSize == 0)
+            {
+                throw std::runtime_error("Attempt to create a heap of zero elements");
+            }
         }
 
         template <typename RandomAccessIterator>
         explicit BinaryHeap(RandomAccessIterator first, RandomAccessIterator last, const Comparator& iComparator)
-            : _comparator(iComparator),
-              _elementCount(0),
-              _elements(distance(first, last) + 1)
+            : BinaryHeap(distance(first, last), iComparator)
         {
             while (first != last)
             {
@@ -102,11 +104,11 @@ namespace heap
             {
                 size_t childIndex = 2 * elementIndex;
                 // Checking which of the 2 children has to be compared with the parent.
-                if (childIndex < _elementCount && _comparator(childIndex, childIndex + 1))
+                if (childIndex < _elementCount && _comparator(_elements[childIndex], _elements[childIndex + 1]))
                 {
                     ++childIndex;
                 }
-                if (_comparator(elementIndex, childIndex))
+                if (_comparator(_elements[elementIndex], _elements[childIndex]))
                 {
                     // If the inequality comparison between the parent at elementIndex and the child at childIndex
                     // is satisfied, the parent is swapped with the child, and the former goes down in the hierarchy.
@@ -124,7 +126,7 @@ namespace heap
         void swim(const size_t iElementIndex)
         {
             size_t elementIndex = iElementIndex;
-            while (elementIndex > 1 && _comparator(elementIndex / 2, elementIndex))
+            while (elementIndex > 1 && _comparator(_elements[elementIndex / 2], _elements[elementIndex]))
             {
                 // If the inequality comparison between the child at elementIndex and the parent at elementIndex / 2
                 // is satisfied, the child is swapped with the parent, and the former goes up in the hierarchy.
