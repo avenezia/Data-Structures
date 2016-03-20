@@ -7,6 +7,7 @@ using namespace std;
 #include "gtest/gtest.h"
 
 #include "MaxHeap.hpp"
+#include "MinHeap.hpp"
 
 namespace heap
 {
@@ -80,4 +81,17 @@ namespace heap
         ASSERT_EQ(2, heap.size());
     }
 
+    TEST (BinaryHeapTest, testGetMin)
+    {
+        vector<int> values = {-1, 23, 15, -18};
+        MinHeap<int> heap(values.begin(), values.end());
+        vector<int> expectedValues = {-18, -1, 15, 23};
+        for (size_t index = 0; index < expectedValues.size(); ++index)
+        {
+            ASSERT_EQ(expectedValues[index], heap.getMin());
+            heap.deleteMin();
+        }
+    }
+
+    // The methods of the base class are not tested in the MinHeap since they are already covered by the MaxHeap tests.
 }

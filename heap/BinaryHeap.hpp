@@ -65,6 +65,7 @@ namespace heap
 
       protected:
 
+        /* It extracts the root, moves the last element in the root position and calls the top-down reheapify. */
         T deleteRoot()
         {
             if (_elementCount == 0)
