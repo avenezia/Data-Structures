@@ -216,7 +216,7 @@ namespace trie
         return !_value && _subTrieMap.empty();
     }
 
-    // Instantiation for test purposes.
+    // Explicit instantiation for test purposes.
     template class Trie<string>;
 
 }
