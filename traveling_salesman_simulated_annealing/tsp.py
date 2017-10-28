@@ -4,6 +4,22 @@ import random
 from point import Point
 
 class TSP:
+    _initial_temperature = 1.0
+
+    """ How many times do we cool: make higher to improve quality, lower to
+    speed the program up. Move in tandem with the _cooling_fraction."""
+    _cooling_steps = 500
+
+    """How much to cool each time: make higher to improve quality, lower to
+       speed the program up."""
+    _cooling_fraction = 0.97
+
+    """Lower makes it faster, higher makes it potentially better."""
+    _steps_per_temp = 1000
+
+    """Problem specific Boltzman's constant."""
+    _k = 0.01
+
     def __init__(self, coordinates):
         self.__coordinates = coordinates
         self.__coordinates_count = len(self.__coordinates)
