@@ -2,9 +2,11 @@ import logging
 import re
 import sys
 
+from point import Point
+
 class TSPLibParser:
     def __init__(self, filename):
-        self.__coordinates = []
+        self.__coordinates = {}
         self.__coordinates_regex = re.compile("^([0-9]+) ([0-9]+\.[0-9]+) ([0-9]+\.[0-9]+$)")
         self.__filename = filename
 
@@ -22,8 +24,8 @@ class TSPLibParser:
     def _parse_coordinates_line(self, line):
         match = re.match(self.__coordinates_regex, line)
         if match:
-            x, y = float(match.group(2)), float(match.group(3))
-            self.__coordinates.append((x, y))
+            node_id, point = int(match.group(1)), Point(float(match.group(2)), float(match.group(3)))
+            self.__coordinates[node_id] = point
         else:
             logging.error("Following line does not match coordinates regex: " + line)
 
