@@ -18,7 +18,7 @@ class TSPLibParser:
                 elif len(line) > 0 and line[0].isdigit():
                     self._parse_coordinates_line(line.strip(' \n'))
         logging.info("Parsed " + str(len(self.__coordinates)) + " coordinates")
-        print (self.__coordinates)
+        logging.debug(self.__coordinates)
         return self.__coordinates
 
     def _parse_coordinates_line(self, line):
@@ -33,16 +33,3 @@ class TSPLibParser:
         tokens = line.split(":")
         assert len(tokens) == 2, "Unexpected format for name attribute"
         logging.info("TSPLIB instance " + tokens[1].strip())
-
-if __name__ == '__main__':
-    root = logging.getLogger()
-    root.setLevel(logging.DEBUG)
-
-    stream_handler = logging.StreamHandler(sys.stdout)
-    stream_handler.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    stream_handler.setFormatter(formatter)
-    root.addHandler(stream_handler)
-
-    p = TSPLibParser("wi29")
-    p.parse()
