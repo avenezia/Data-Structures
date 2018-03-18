@@ -1,9 +1,11 @@
 import assert = require('assert');
 
-class Suffix
+export class Suffix
 {
     constructor (private text: string, protected offset: number)
-    {        
+    {
+        assert(offset >= 0, "offset must be positive");
+        assert(offset < text.length, "offset must be lessn than string length");
     }
 
     length(): number
@@ -13,13 +15,14 @@ class Suffix
 
     charAt(index: number): string
     {
+        assert(index >= 0, "index must be >= 0")
         assert(index + this.offset < this.text.length, "charAt out of bounds access");
         return this.text.charAt(index + this.offset);
     }
 
     compareTo(other: Suffix): number
     {
-        let minLength: number = Math.min(this.length(), other.length());
+        const minLength: number = Math.min(this.length(), other.length());
         for (let i = 0; i < minLength; ++i)
         {
             if (this.charAt(i) < other.charAt(i))
@@ -34,16 +37,5 @@ class Suffix
     {
         return this.text.substr(this.offset);
     }
-
-    static main(): void
-    {
-        const s = "banana";
-        let s1 = new Suffix(s, 1);
-        let s2 = new Suffix(s, 2);
-        console.log(s1.compareTo(s2));
-        console.log(s2.toString());
-    }
 }
-
-Suffix.main();
 
