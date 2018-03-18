@@ -28,3 +28,6 @@ build/**
 *.exe
 *.out
 *.app
+
+#npm dependencies
+node_modules/
