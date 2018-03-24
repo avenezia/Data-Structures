@@ -2,7 +2,7 @@ import assert = require('assert');
 
 export class Suffix
 {
-    constructor (private text: string, protected offset: number)
+    constructor (private text: string, private offset: number)
     {
         assert(offset >= 0, "offset must be positive");
         assert(offset < text.length, "offset must be lessn than string length");
