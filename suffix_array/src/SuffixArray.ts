@@ -3,7 +3,7 @@ import assert = require('assert');
 import {Suffix} from './Suffix'
 
 
-class SuffixArray
+export class SuffixArray
 {
     suffixes: Array<Suffix> = new Array;
 
@@ -31,7 +31,8 @@ class SuffixArray
 
     private lcp(index: number): number
     {
-        assert(index > 0);
+        assert(index > 0, "Index must be greater than 0");
+        assert(index < this.suffixes.length, "Index must be smaller than text length");
         return SuffixArray.lcp(this.suffixes[index], this.suffixes[index-1]);
     }
 
@@ -62,8 +63,5 @@ class SuffixArray
             let suffixArray = new SuffixArray(s);
             console.log("Longest common substring of " + s + ": " + suffixArray.longestCommonSubstring());
         }
-        
     }
 }
-
-SuffixArray.main();
