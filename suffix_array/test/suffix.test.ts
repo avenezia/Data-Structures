@@ -1,4 +1,4 @@
-import {Suffix} from '../src/Suffix'
+import {Suffix} from '../src/suffix'
 
 test('offset greater than string length at construction', () => {
     expect(() => {
